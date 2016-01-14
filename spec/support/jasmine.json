@@ -8,6 +8,7 @@
       "/support/jasmineTest/TCP/tcpSocketClient.spec.js",
       "/support/jasmineTest/Unix/unixSocketServer.spec.js",
 
-      "/support/jasmineTest/TCP/tcpSocketServer.spec.js"
+      "/support/jasmineTest/TCP/tcpSocketServer.spec.js",
+      "/support/jasmineTest/RawBuffer/rawBufferClient.spec.js"
   ]
 }

@@ -19,7 +19,7 @@ describe('TCP Socket verification of client',
 
                 ipc.connectToNet(
                     'tcpFakeServer',
-                    8002,
+                    8030,
                     function open(){
                         ipc.of.tcpFakeServer.on(
                             'error',
@@ -60,7 +60,7 @@ describe('TCP Socket verification of client',
 
                 ipc.connectToNet(
                     'tcpFakeServer',
-                    8002,
+                    8030,
                     function open(){
                         ipc.of.tcpFakeServer.on(
                             'error',
@@ -86,7 +86,7 @@ describe('TCP Socket verification of client',
         );
 
         it(
-            'Verify TCP client connects to server named "tcpServer" and receives message.',
+            'Verify TCP client connects to server named "tcpServer" and receives message.It disconnects from the server after receiving "kill.connection" event.',
             function testIt(done){
                 ipc.connectToNet(
                     'tcpServer',
@@ -100,7 +100,6 @@ describe('TCP Socket verification of client',
                                     function gotMessage(data){
                                         expect(data.id).toBe('tcpServer');
                                         expect(data.message).toBe('I am TCP server!');
-                                        testDone();
                                     }
                                 );
 
@@ -113,21 +112,25 @@ describe('TCP Socket verification of client',
                                 );
                             }
                         );
-
+                        
+                        ipc.of.tcpServer.on(
+                            'kill.connection',
+                            function disconnectServer(){
+                                ipc.disconnect('tcpServer');
+                                done();
+                            }
+                        );
+                        
                         ipc.of.tcpServer.on(
                             'error',
                             function testError(err){
                                 expect(err).toBe(false);
-                                testDone();
+                                ipc.disconnect('tcpServer');
                             }
                         );
                     }
                 );
-
-                function testDone(){
-                    ipc.disconnect('tcpServer');
-                    done();
-                }
+                
             }
         );
     }

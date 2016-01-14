@@ -1,16 +1,7 @@
 'use strict';
 
 const ipc=require('../../../node-ipc');
-const process=require('process');
-const dieAfter=30000;
 
-//die after 60 seconds
-setTimeout(
-    function killServerProcess(){
-        process.exit(0);
-    },
-    dieAfter
-);
 
 ipc.config.id = 'tcpServer';
 ipc.config.retry= 1500;
@@ -30,8 +21,26 @@ ipc.serveNet(
                         message : 'I am TCP server!'
                     }
                 );
+                
+                if ((data.id == 'testClient') && (data.message == 'Hello from testClient.')){
+                    ipc.server.broadcast(
+                        'kill.connection',
+                        {
+                            id:ipc.config.id
+                        }
+                    );
+                }
+                
             }
         );
+    }
+);
+
+
+ipc.server.on(
+    'socket.disconnected',
+    function shutdownServer(){
+        ipc.server.stop();
     }
 );
 
