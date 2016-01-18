@@ -123,12 +123,19 @@ describe(
              
                 ipc.config.networkPort=8092;
                 ipc.config.id ='testUDP4Server';
+                ipc.config.rawBuffer = true;
                 
                 ipc.serveNet('udp4');
                 
+                ipc.server.emit(
+                    'message', 
+                    'I am UDP4Server for unit test.'
+                );
+                
                 setTimeout(
-                       function test(){
+                       function testDone(){
                            expect(ipc.server.udp4).toBe(true);
+                           ipc.config.rawBuffer = false; //resetting back to default value
                            ipc.server.stop();
                            done();
                       },200
