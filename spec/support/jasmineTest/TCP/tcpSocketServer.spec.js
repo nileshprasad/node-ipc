@@ -11,6 +11,7 @@ describe('TCP Socket verification of server',
                 ipc.config.id ='testWorld';
                 ipc.config.retry = 1000;
 
+                let message = {};
                 let clientCounter=0;
                 ipc.config.maxConnections=1;
                 ipc.config.networkPort=8500;
@@ -19,8 +20,12 @@ describe('TCP Socket verification of server',
                     function serverStarted(){
                         ipc.server.on(
                             'connect',
-                            function connected(){
+                            function connected(socket){
                                 clientCounter++;
+                                ipc.server.emit(
+                                    socket,
+                                    message
+                                );
                             }
                         );
                     }

@@ -5,6 +5,7 @@ const ipc = require('../../../../node-ipc');
 
 ipc.config.id ='testClient';
 ipc.config.retry = 600;
+ipc.config.silent = true;
 
 describe('Test Cases for Unix client: ',
     function UnixClientSpec(){

@@ -63,6 +63,7 @@ describe(
          it(
             'Verify UDP server of type udp6 connects to UDP server named "udp6Server" and receives message.',
             function testIt(done){
+                
                 ipc.config.networkPort=8099;
                 ipc.config.id ='testClient';
                 ipc.config.retry = 600;
@@ -114,5 +115,28 @@ describe(
                 ipc.server.start();
             }
         );
+        
+        
+        it(
+            'Verify UDP4 server turns on with empty callback',
+            function testIt(done){
+             
+                ipc.config.networkPort=8092;
+                ipc.config.id ='testUDP4Server';
+                
+                ipc.serveNet('udp4');
+                
+                setTimeout(
+                       function test(){
+                           expect(ipc.server.udp4).toBe(true);
+                           ipc.server.stop();
+                           done();
+                      },200
+                );
+                
+                ipc.server.start();
+                
+            }
+        );  
      }
 );

@@ -20,7 +20,9 @@ describe('Raw Buffer tests: ',
                              ipc.of.rawBufferServer.on(
                                 'connect',
                                 function(){
-                                    ipc.log('## connected to rawBufferServer ##'.rainbow, ipc.config.delay);
+                                    ipc.of.rawBufferServer.emit(
+                                        'Hello from rawBufferClient.'
+                                    );
                                 }
                             );
 
@@ -67,7 +69,9 @@ describe('Raw Buffer tests: ',
                              ipc.of.rawBufferServer.on(
                                 'connect',
                                 function(){
-                                    ipc.log('## connected to rawBufferServer ##'.rainbow, ipc.config.delay);  
+                                    ipc.of.rawBufferServer.emit(
+                                        'Hello from rawBufferClient.'
+                                    );
                                     
                                 }
                             );
@@ -79,7 +83,6 @@ describe('Raw Buffer tests: ',
                                     testDone();
                                 }
                             );
-                            
                             
                             ipc.of.rawBufferServer.on(
                                 'error',

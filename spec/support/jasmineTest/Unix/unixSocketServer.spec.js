@@ -14,19 +14,20 @@ describe(
                 ipc.config.id ='testWorld';
                 ipc.config.retry = 1000;
                 ipc.config.silent=false;
-
+                  
                 let clientCounter=0;
                 ipc.config.maxConnections=1;
 
                 ipc.serve(
                     '/tmp/app.testWorld',
-                    function serverStarted(){
+                    function serverStarted(socket){
                         ipc.server.on(
                             'connect',
-                            function connected(){
+                            function connected(socket){
                                 clientCounter++;
                             }
                         );
+                        
                     }
                 );
 

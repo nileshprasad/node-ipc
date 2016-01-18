@@ -18,3 +18,6 @@ cmd.run(`node ${__dirname}/tcpClient.js`);
 cmd.run(`node ${__dirname}/tcpClient.js`);
 
 cmd.run(`node ${__dirname}/rawBufferServer.js`);
+
+cmd.run(`node ${__dirname}/unixClientUnit1.js`);
+cmd.run(`node ${__dirname}/unixClientUnit2.js`);
