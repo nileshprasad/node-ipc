@@ -132,6 +132,14 @@ describe(
                     'I am UDP4Server for unit test.'
                 );
                 
+                ipc.server.on(
+                    'error',
+                    function gotErr(err){
+                        expect(err).toBe(false);
+                        done();
+                    }
+                );
+                
                 setTimeout(
                        function testDone(){
                            expect(ipc.server.udp4).toBe(true);

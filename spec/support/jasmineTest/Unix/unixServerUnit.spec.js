@@ -31,18 +31,21 @@ describe(
                                          message: 'This is unix server for unit1.'
                                      }
                                  );
-                                 ipc.server.on(
-                                     'error',
-                                     function gotErr(err){
-                                         expect(err).toBe(false);
-                                         testDone();
-                                     }
-                                 );
+                                 
                                  testDone();
                              }
                          );
                      }
                 );
+                
+                ipc.server.on(
+                     'error',
+                     function gotErr(err){
+                         expect(err).toBe(false);
+                         testDone();
+                     }
+                );
+                
                 function testDone(){
                     ipc.server.stop();
                     done();
@@ -77,25 +80,26 @@ describe(
                                 message: 'This is unix server for unit2.'
                             }
                         );
-
-                        ipc.server.on(
-                            'error',
-                            function gotErr(err){
-                                expect(err).toBe(false);
-                                testDone();
-                            }
-                        );
+                    
                         testDone();
                     }
 
                 );
                 
-             function testDone(){
-                 ipc.server.stop();
-                 done();
-             }
+                ipc.server.on(
+                    'error',
+                    function gotErr(err){
+                        expect(err).toBe(false);
+                        testDone();
+                    }
+                );
                 
-             ipc.server.start();
+                function testDone(){
+                    ipc.server.stop();
+                    done();
+                }
+                
+                ipc.server.start();
                 
             }
         );  

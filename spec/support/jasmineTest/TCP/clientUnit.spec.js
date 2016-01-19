@@ -51,25 +51,16 @@ describe('Verification of TCP and Unix client to connect without passing ID',
                 ipc.config.stopRetrying = false;
 
                 ipc.connectToNet('tcpServerUnit');
-                
+
                 setTimeout(
                     function verifyDefaultValues(){
                         expect(ipc.config.networkHost).toBe('127.0.0.1');
                         expect(ipc.config.networkPort).toBe(8000);
                         done();
                     },200
-
                 );
-
             }
         );
-    
-    
-    
-    
-    
-    
-    
     
     }
 );
