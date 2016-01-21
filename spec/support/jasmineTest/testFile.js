@@ -12,12 +12,10 @@ cmd.run(`node ${__dirname}/tcpServer.js`);
 cmd.run(`node ${__dirname}/tcpServerSync.js`);
 
 cmd.run(`node ${__dirname}/unixClient.js`);
-cmd.run(`node ${__dirname}/unixClient.js`);
+cmd.run(`node ${__dirname}/unixClientforBroadcastTest.js`);
 
-cmd.run(`node ${__dirname}/tcpClient.js`);
 cmd.run(`node ${__dirname}/tcpClient.js`);
 
 cmd.run(`node ${__dirname}/rawBufferServer.js`);
 
-cmd.run(`node ${__dirname}/unixClientUnit1.js`);
-cmd.run(`node ${__dirname}/unixClientUnit2.js`);
+
