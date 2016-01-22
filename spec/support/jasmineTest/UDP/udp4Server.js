@@ -1,6 +1,6 @@
 'use strict';
 
-const ipc=require('../../../node-ipc');
+const ipc=require('../../../../node-ipc');
 const process=require('process');
 const dieAfter=30000;
 

@@ -9,6 +9,8 @@ describe('Verification of TCP and Unix client to connect without passing ID',
             'Verify TCP client connection gets aborted when ID of the server is not specified.',
             function testIt(done){
                 ipc.config.id ='testClient';
+                ipc.config.silent = true;
+                
                 ipc.connectToNet();
             // (ipc.of) Object is not created when ID of the server is not specified in the connectToNet() 
                 setTimeout(
@@ -34,18 +36,5 @@ describe('Verification of TCP and Unix client to connect without passing ID',
             }
         );
 
-     it(
-         'Verify default values of networkHost and networkPort are assigned when host and port values are not passed for TCP client.',
-            function testIt(done){
-                ipc.connectToNet('tcpServerUnit');
-                setTimeout(
-                    function verifyDefaultValues(){
-                        expect(ipc.config.networkHost).toBe('127.0.0.1');
-                        expect(ipc.config.networkPort).toBe(8000);
-                        done();
-                    },200
-                );
-            }
-        );
     }
 );

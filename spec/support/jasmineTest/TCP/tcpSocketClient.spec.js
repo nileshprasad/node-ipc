@@ -9,6 +9,7 @@ describe('TCP Socket verification of client',
             'Verify retry attempts by TCP client to connect to the server as per the value set in "maxRetries" parameter.',
             function testIt(done){
                 ipc.config.id ='testClient';
+                ipc.config.networkPort = 8000;
                 ipc.config.retry = 600;
                 ipc.config.maxRetries = 3;
                 ipc.config.stopRetrying = false;
@@ -17,26 +18,23 @@ describe('TCP Socket verification of client',
                 //before retrying
                 let errorCount=-1;
 
-                ipc.connectToNet(
-                    'tcpFakeServer',
-                    8030,
-                    function open(){
-                        ipc.of.tcpFakeServer.on(
-                            'error',
-                            function gotError(err){
-                                errorCount++;
-                                expect(ipc.of.tcpFakeServer.retriesRemaining).toBe(
-                                    ipc.config.maxRetries-errorCount
-                                );
-                                expect(err).toBeDefined();
-                            }
+                ipc.connectToNet('tcpFakeServer');
+                ipc.of.tcpFakeServer.on(
+                    'error',
+                    function gotError(err){
+                        errorCount++;
+                        expect(ipc.of.tcpFakeServer.retriesRemaining).toBe(
+                            ipc.config.maxRetries-errorCount
                         );
+                        expect(err).toBeDefined();
                     }
                 );
-
+                
                 setTimeout(
                     function testDelay(){
                         expect(errorCount).toBe(ipc.config.maxRetries);
+                        expect(ipc.config.networkHost).toBe('127.0.0.1');
+                        expect(ipc.config.networkPort).toBe(8000);
                         ipc.disconnect('tcpFakeServer');
                         done();
                     },

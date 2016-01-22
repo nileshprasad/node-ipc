@@ -1,6 +1,6 @@
 'use strict';
 
-const ipc=require('../../../node-ipc');
+const ipc=require('../../../../node-ipc');
 
 
 ipc.config.id = 'tcpServer';
