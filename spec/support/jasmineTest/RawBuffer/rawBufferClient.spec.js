@@ -9,6 +9,7 @@ describe('Raw Buffer tests: ',
                     
                     ipc.config.id ='rawBufferClient';
                     ipc.config.retry = 600;
+                    ipc.config.silent = true;
                     ipc.config.rawBuffer=true;
                     
                     ipc.config.encoding='ascii';
@@ -57,8 +58,6 @@ describe('Raw Buffer tests: ',
                 'Verify the ASCII encoded data received from the server by the client is NOT same as the one encoded by the client in BASE64 format.',
                 function(done){
                      
-                    ipc.config.id ='rawBufferClient';
-                    ipc.config.retry = 600;
                     ipc.config.rawBuffer=true;
                     ipc.config.encoding='base64';
                     
@@ -79,7 +78,7 @@ describe('Raw Buffer tests: ',
                             ipc.of.rawBufferServer.on(
                                 'data',
                                 function(data){
-                                    expect(data).not.toBe('hello');
+                                    expect(data.toString()).not.toBe('hello');
                                     testDone();
                                 }
                             );
@@ -95,6 +94,8 @@ describe('Raw Buffer tests: ',
                             
                             function testDone(){
                                 ipc.disconnect('rawBufferServer');
+                                ipc.config.rawBuffer=false;
+                                ipc.config.encoding='utf8';
                                 done();
                             }
                         }
