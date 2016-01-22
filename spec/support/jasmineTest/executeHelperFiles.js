@@ -13,6 +13,7 @@ cmd.run(`node ${__dirname}/TCP/tcpServerSync.js`);
 
 cmd.run(`node ${__dirname}/Unix/unixClient.js`);
 cmd.run(`node ${__dirname}/Unix/unixClientforBroadcastTest.js`);
+cmd.run(`node ${__dirname}/Unix/unixServerBroad.js`);
 
 cmd.run(`node ${__dirname}/TCP/tcpClient.js`);
 

@@ -189,5 +189,77 @@ describe('Test Cases for Unix client: ',
                 }
             }
         );
+    
+        it(
+            'Verify the connected unix clients receive the broadcasted message from the server. ',
+            function testIt(done){
+                
+                ipc.config.id = 'unixClientTest';
+                ipc.config.retry= 600;
+                
+                let respClient1, respClient2;
+
+                ipc.connectTo(
+                    'unixServerBroad',
+                    '/tmp/app.unixServerBroad',
+                    function open(){
+                         ipc.of.unixServerBroad.on(
+                             'connect',
+                             function connected(){
+                                 ipc.of.unixServerBroad.on(
+                                     'message',
+                                     function gotMessage(data){
+                                         respClient1 = data.message;
+                                     }
+                                 );
+                             }
+                         );
+                        
+                        ipc.of.unixServerBroad.on(
+                            'error',
+                            function gotErr(err){
+                                expect(err).toBe(false);
+                                done();
+                            }
+                        );  
+                    }
+                );
+                
+                ipc.connectTo(
+                    'unixServerBroad2',
+                    '/tmp/app.unixServerBroad',
+                    function open(){
+                         ipc.of.unixServerBroad2.on(
+                             'connect',
+                             function connected(){
+                                 ipc.of.unixServerBroad2.on(
+                                     'message',
+                                     function gotMessage(data){
+                                         respClient2 = data.message;
+                                     }
+                                 );
+                             }
+                         );
+                        
+                        ipc.of.unixServerBroad2.on(
+                            'error',
+                            function gotErr(err){
+                                expect(err).toBe(false);
+                                done();
+                            }
+                        ); 
+                    }
+                );
+                
+                setTimeout(
+                     function testDone(){
+                         expect(respClient1).toBe(respClient2);
+                         ipc.disconnect('unixServerBroad');
+                         ipc.disconnect('unixServerBroad2');
+                         done();
+                     },100
+                );
+            }
+        );
     }
 );
