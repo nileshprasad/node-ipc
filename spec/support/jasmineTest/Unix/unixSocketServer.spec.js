@@ -2,7 +2,7 @@
 'use strict';
 
 const ipc = require('../../../../node-ipc');
-
+ 
 describe(
     'Test Cases for server: ',
     function testDescribe(){
@@ -13,11 +13,13 @@ describe(
 
                 ipc.config.id ='unixServerTest';
                 ipc.config.retry = 600;
+               
                 
                 let responseMessage ={
                     unixClientTest1:false,
                     unixClientTest2:false
                 };
+                let response1, response2;
                 
                 ipc.serve();
                 
@@ -34,16 +36,15 @@ describe(
 
                         ipc.server.on(
                             'message',
-                            function gotMessage(data,socket){
-                               // console.log('data obtained from Unix Client is: ', data.id, data.message);
+                            function gotMessage(data){
                                 responseMessage[data.id]=true;
                                 
                                 if (data.id == 'unixClientTest1'){
-                                    expect(data.message).toBe('Acknowledgement from client1.');
+                                    response1= data.message;
                                 }
-                                else if (data.id == 'unixClientTest2'){
-                                    expect(data.message).toBe('Acknowledgement from client2.');
-                                }  
+                                if (data.id == 'unixClientTest2'){
+                                    response2 = data.message;
+                                } 
                             }
                         ); 
                     }
@@ -56,16 +57,21 @@ describe(
                         done();
                     }
                 );
-                
+
                 setTimeout(
                      function testDone(){
-                         expect(responseMessage.unixClientTest1).toBe(true);
-                         expect(responseMessage.unixClientTest2).toBe(true);
+                         if (responseMessage.unixClientTest1 && 
+                             responseMessage.unixClientTest2){
+                                expect(response1).toBe('Acknowledgement from client1.');
+                                expect(response2).toBe('Acknowledgement from client2.'); 
+                        }else {
+                            expect (true).toBe(false);  
+                        }
                          ipc.server.stop();
                          done();
-                     },2000
+                     },1000
                 );
-                
+                    
                 ipc.server.start();
                 
             }
