@@ -3,15 +3,14 @@
 
 const ipc = require('../../../../node-ipc');
 
-ipc.config.id ='testClient';
-ipc.config.retry = 600;
-ipc.config.silent = true;
-
 describe('Test Cases for Unix client: ',
     function UnixClientSpec(){
         it(
             'Verify retry attempts by Unix client to connect to the Unix server as per the value set in "maxRetries" parameter.',
             function testIt(done){
+                ipc.config.id ='testClient';
+                ipc.config.retry = 600;
+                ipc.config.silent = true;
 
                 ipc.config.maxRetries = 3;
 
