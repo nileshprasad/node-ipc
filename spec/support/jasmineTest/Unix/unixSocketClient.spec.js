@@ -210,6 +210,7 @@ describe('Test Cases for Unix client: ',
                                      'message',
                                      function gotMessage(data){
                                          respClient1 = data.message;
+                                         expect(respClient1).toBe('broadcast message test from server');
                                      }
                                  );
                              }
@@ -224,7 +225,7 @@ describe('Test Cases for Unix client: ',
                         );  
                     }
                 );
-                
+        
                 ipc.connectTo(
                     'unixServerBroad2',
                     '/tmp/app.unixServerBroad',
@@ -236,6 +237,7 @@ describe('Test Cases for Unix client: ',
                                      'message',
                                      function gotMessage(data){
                                          respClient2 = data.message;
+                                         expect(respClient2).toBe('broadcast message test from server');
                                      }
                                  );
                              }
