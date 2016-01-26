@@ -210,7 +210,6 @@ describe('Test Cases for Unix client: ',
                                      'message',
                                      function gotMessage(data){
                                          respClient1 = data.message;
-                                         expect(respClient1).toBe('broadcast message test from server');
                                      }
                                  );
                              }
@@ -237,7 +236,6 @@ describe('Test Cases for Unix client: ',
                                      'message',
                                      function gotMessage(data){
                                          respClient2 = data.message;
-                                         expect(respClient2).toBe('broadcast message test from server');
                                      }
                                  );
                              }
@@ -256,6 +254,8 @@ describe('Test Cases for Unix client: ',
                 setTimeout(
                      function testDone(){
                          expect(respClient1).toBe(respClient2);
+                         expect(respClient1).toBe('broadcast message test from server');
+                         expect(respClient2).toBe('broadcast message test from server');
                          ipc.disconnect('unixServerBroad');
                          ipc.disconnect('unixServerBroad2');
                          done();
@@ -263,5 +263,8 @@ describe('Test Cases for Unix client: ',
                 );
             }
         );
+    
+    
+    
     }
 );

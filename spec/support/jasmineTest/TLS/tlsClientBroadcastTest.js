@@ -38,20 +38,13 @@ ipc.connectToNet(
                  ipc.of.testTLSserver.on(
                      'message',
                      function gotMessage(data){
-                         console.log('data obtained from TLS Server is: ', data.id, data.message);
-                         
-                         if((data.message== 'broadcast message test from server')&&
-                           (data.id== 'testTLSserver')){
-                            
                             ipc.of.testTLSserver.emit(
                                 'message',
                                 {
-                                    id      : ipc.config.id +'1',
-                                    message : 'Acknowledgement from client1.'
+                                    id      : ipc.config.id +'1'
                                 }
                             );
                         }
-                     }
                  );
              }
          );
@@ -67,20 +60,13 @@ ipc.connectToNet(
                  ipc.of.testTLSserver2.on(
                      'message',
                      function gotMessage(data){
-                         console.log('data obtained from TLS Server is: ', data.id, data.message);
-                         
-                         if((data.message== 'broadcast message test from server')&&
-                           (data.id== 'testTLSserver')){
-                            
                             ipc.of.testTLSserver2.emit(
                                 'message',
                                 {
-                                    id      : ipc.config.id +'2',
-                                    message : 'Acknowledgement from client2.'
+                                    id      : ipc.config.id +'2'
                                 }
                             );
                         }
-                     }
                  );
              }
          );

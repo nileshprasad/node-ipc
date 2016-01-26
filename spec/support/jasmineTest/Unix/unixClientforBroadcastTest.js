@@ -26,19 +26,12 @@ ipc.connectTo(
                  ipc.of.unixServerTest.on(
                      'message',
                      function gotMessage(data){
-                         console.log('data obtained from Unix Server is: ', data.id, data.message);
-                         
-                         if((data.message== 'broadcast message test from server')&&
-                           (data.id== 'unixServerTest')){
-                            
-                            ipc.of.unixServerTest.emit(
-                                'message',
-                                {
-                                    id      : ipc.config.id +'1',
-                                    message : 'Acknowledgement from client1.'
-                                }
-                            );
-                        }
+                         ipc.of.unixServerTest.emit(
+                            'message',
+                            {
+                                id      : ipc.config.id +'1'
+                            }
+                        );
                      }
                  );
              }
@@ -56,19 +49,13 @@ ipc.connectTo(
                  ipc.of.unixServerTest2.on(
                      'message',
                      function gotMessage(data){
-                         console.log('data obtained from Unix Server is: ', data.id, data.message);
-                         
-                         if((data.message== 'broadcast message test from server')&&
-                           (data.id== 'unixServerTest')){
-                            
-                            ipc.of.unixServerTest2.emit(
-                                'message',
-                                {
-                                    id      : ipc.config.id +'2',
-                                    message : 'Acknowledgement from client2.'
-                                }
-                            );
-                        }
+                         ipc.of.unixServerTest2.emit(
+                            'message',
+                            {
+                                id      : ipc.config.id +'2'
+                            }
+                        );
+                        
                      }
                  );
              }

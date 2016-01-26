@@ -7,14 +7,13 @@ describe(
     'Test Cases for server: ',
     function testDescribe(){
         // Unix server verification //
-        it(
+       it(
             'Verify unix server starts without path and callback passed in as a parameter and broadcasts message.',
             function testIt(done){
 
                 ipc.config.id ='unixServerTest';
                 ipc.config.retry = 600;
                
-                
                 let responseMessage ={
                     unixClientTest1:false,
                     unixClientTest2:false
@@ -38,13 +37,6 @@ describe(
                             'message',
                             function gotMessage(data){
                                 responseMessage[data.id]=true;
-                                
-                                if (data.id == 'unixClientTest1'){
-                                    response1= data.message;
-                                }
-                                if (data.id == 'unixClientTest2'){
-                                    response2 = data.message;
-                                } 
                             }
                         ); 
                     }
@@ -60,13 +52,8 @@ describe(
 
                 setTimeout(
                      function testDone(){
-                         if (responseMessage.unixClientTest1 && 
-                             responseMessage.unixClientTest2){
-                                expect(response1).toBe('Acknowledgement from client1.');
-                                expect(response2).toBe('Acknowledgement from client2.'); 
-                        }else {
-                            expect (true).toBe(false);  
-                        }
+                         expect(responseMessage.unixClientTest1).toBe(true);
+                         expect(responseMessage.unixClientTest2).toBe(true);
                          ipc.server.stop();
                          done();
                      },1000
