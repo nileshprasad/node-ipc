@@ -1,4 +1,5 @@
 const ipc = require('../../../../node-ipc');
+//ipc.config; // Starting test with default config values
     
 describe('Raw Buffer tests: ',
          function(){
@@ -30,6 +31,7 @@ describe('Raw Buffer tests: ',
                             ipc.of.rawBufferServer.on(
                                 'data',
                                 function(data){
+                                    expect(data instanceof Buffer).toBe(true);
                                     expect(data.toString()).toBe('hello');
                                     testDone();
                                 }
@@ -79,6 +81,7 @@ describe('Raw Buffer tests: ',
                                 'data',
                                 function(data){
                                     expect(data.toString()).not.toBe('hello');
+                                    expect(data instanceof Buffer).toBe(true);
                                     testDone();
                                 }
                             );
@@ -94,8 +97,8 @@ describe('Raw Buffer tests: ',
                             
                             function testDone(){
                                 ipc.disconnect('rawBufferServer');
-                                ipc.config.rawBuffer=false;
-                                ipc.config.encoding='utf8';
+                                ipc.config.rawBuffer=false; //resetting back to default value
+                                ipc.config.encoding='utf8'; //resetting back to default value
                                 done();
                             }
                         }
