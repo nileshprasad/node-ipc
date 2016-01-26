@@ -9,7 +9,6 @@ cmd.run(`node ${__dirname}/UDP/udp4Server.js`);
 cmd.run(`node ${__dirname}/UDP/udp6Server.js`);
 
 cmd.run(`node ${__dirname}/TCP/tcpServer.js`);
-cmd.run(`node ${__dirname}/TCP/tcpServerSync.js`);
 
 cmd.run(`node ${__dirname}/Unix/unixClient.js`);
 cmd.run(`node ${__dirname}/Unix/unixClientforBroadcastTest.js`);
