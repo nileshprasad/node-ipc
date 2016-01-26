@@ -1,5 +1,4 @@
 const ipc = require('../../../../node-ipc');
-//ipc.config; // Starting test with default config values
     
 describe('Raw Buffer tests: ',
          function(){
