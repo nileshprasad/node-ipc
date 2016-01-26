@@ -144,6 +144,7 @@ describe(
                        function testDone(){
                            expect(ipc.server.udp4).toBe(true);
                            ipc.config.rawBuffer = false; //resetting back to default value
+                           ipc.config.networkPort=8000; // resetting back t default value
                            ipc.server.stop();
                            done();
                       },200
